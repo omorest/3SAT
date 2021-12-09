@@ -2,7 +2,7 @@
   "name": "3sat",
   "version": "0.0.0",
   "scripts": {
-    "dev": "vite",
+    "dev": "vite --open",
     "build": "tsc && vite build",
     "preview": "vite preview"
   },
