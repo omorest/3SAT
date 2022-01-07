@@ -1,9 +1,10 @@
 export class SAT {
   constructor(fileJSON) {
     const {U: literals, C: clauses} = fileJSON
-    this.parser(literals, clauses);
-    this.literals = literals;
-    this.clauses = clauses;
+    this.parser(literals, clauses)
+    this.literals = literals
+    this.clauses = clauses
+    this.k = this.literals.length
   }
   
   parser(literals, clauses) {
@@ -15,7 +16,7 @@ export class SAT {
   }
 
   checkLiterals(literals) {
-    return new Set(literals).size === literals.length
+    return new Set(literals).size === literals.length && literals.length !== 0
   }
 
   checkClause(literals, clause) {

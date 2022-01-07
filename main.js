@@ -1,11 +1,13 @@
 import './style.css'
-import satFile from './input/example1.json';
+import satFile from './input/example1.json'
 import {SAT} from './src/SAT.js'
+import {Transformation} from './src/Transformation.js'
 
 const sat = new SAT(satFile)
 
-console.log("HOLA")
 console.log(sat)
+
+const transformer = new Transformation(sat)
 
 
 document.querySelector('#app').innerHTML = `
