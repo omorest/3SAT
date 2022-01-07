@@ -1,8 +1,12 @@
 import './style.css'
-import sat from '../input/example1.json';
-import {readFile} from './src/readFile.js';
+import satFile from './input/example1.json';
+import {SAT} from './src/SAT.js'
 
-readFile(sat)
+const sat = new SAT(satFile)
+
+console.log("HOLA")
+console.log(sat)
+
 
 document.querySelector('#app').innerHTML = `
   <h1>Hello Vite!</h1>
