@@ -13,7 +13,12 @@ export class Transformation {
   transformer() {
     console.log(this.sat)
     this.sat.clauses.forEach(clause => {
-      if (Object.keys(clause).length <= 3) this.baseCase(clause)
+      if (Object.keys(clause).length <= 3) {
+        this.baseCase(clause)
+      }
+      else {
+        this.otherCase(clause)
+      }
     });
     console.log(this.data3SAT)
   }
@@ -32,13 +37,26 @@ export class Transformation {
     }
   }
 
-  // otherCase(clause) {
-  //   // casos k > 3
-  //   // Variable boobleanas k - 3 
-  //   let booleanVariable = []
-  //   for (let i = 1; i <= clause.length - 3; i++) {
-  //     booleanVariable.push(`Y${i}`)
-  //   }
-  //   const map1 = booleanVariable.map(x => console.log("boolean variable: " + x))
-  // }
+  otherCase(clause) {
+    // casos k > 3
+    // Variable boobleanas k - 3
+    const k = Object.keys(clause).length
+    const data = Object.entries(clause) // [[key, value], ....]
+    const firstClause = Object.fromEntries(data.splice(0, 2));
+    firstClause[`Y1`] = "+"
+    const lastClause = Object.fromEntries(data.splice(data.length - 2, 2))
+    lastClause[`Y${k - 3}`] = "-"
+    
+    this.data3SAT["C"].push(firstClause)
+    for (let i = 1; i <= k - 4; i++) {
+      if (!this.data3SAT["U"].includes(`Y${i}`)) this.data3SAT["U"].push(`Y${i}`)
+      this.data3SAT["C"].push({
+        [`Y${i}`]: "-",
+        [data[i - 1][0]]: data[i - 1][1],
+        [`Y${i + 1}`]: "+"
+      })
+    }
+    if (!this.data3SAT["U"].includes(`Y${k - 3}`)) this.data3SAT["U"].push(`Y${k - 3}`)
+    this.data3SAT["C"].push(lastClause)
+  }
 }
