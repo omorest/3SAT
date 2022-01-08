@@ -1,5 +1,6 @@
 export class SAT {
   constructor(fileJSON) {
+    console.log(fileJSON)
     const {U, C} = fileJSON
     this.parser(U, C)
     this.U = U
