@@ -26,6 +26,7 @@ export class Transformation {
       const newClause = JSON.parse(JSON.stringify(clause))
       for (let j = 0; j < extraLiterals; j++) {
         newClause[`Y${j+1}`] = (binaryConversion[j] === "0") ? "+" : "-"
+        if (!this.data3SAT["U"].includes(`Y${j+1}`)) this.data3SAT["U"].push(`Y${j+1}`)
       }
       this.data3SAT["C"].push(newClause)
     }
@@ -38,8 +39,6 @@ export class Transformation {
   //   for (let i = 1; i <= clause.length - 3; i++) {
   //     booleanVariable.push(`Y${i}`)
   //   }
-
   //   const map1 = booleanVariable.map(x => console.log("boolean variable: " + x))
-  //   firstClause
   // }
 }
