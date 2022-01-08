@@ -1,9 +1,9 @@
 export class SAT {
   constructor(fileJSON) {
-    const {U: literals, C: clauses} = fileJSON
-    this.parser(literals, clauses)
-    this.literals = literals
-    this.clauses = clauses
+    const {U, C} = fileJSON
+    this.parser(U, C)
+    this.U = U
+    this.C = C
   }
   
   parser(literals, clauses) {

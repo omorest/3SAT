@@ -4,15 +4,14 @@ export class Transformation {
   constructor(sat) {
     this.sat = Object.create(sat)
     this.data3SAT = {
-      "U": [...this.sat.literals],
+      "U": [...this.sat.U],
       "C": []
     }
-    this.transformer()
   }
 
-  transformer() {
+  transform() {
     console.log(this.sat)
-    this.sat.clauses.forEach(clause => {
+    this.sat.C.forEach(clause => {
       if (Object.keys(clause).length <= 3) {
         this.baseCase(clause)
       }
@@ -20,16 +19,16 @@ export class Transformation {
         this.otherCase(clause)
       }
     });
-    console.log(this.data3SAT)
+    return new SAT(this.data3SAT)
   }
 
   baseCase(clause) {
     const k = Object.keys(clause).length
-    const extraLiterals = 3-k
-    for (let i = 0; i < Math.pow(2, extraLiterals); i++) {
-      const binaryConversion = ("0" + (i >>> 0).toString(2)).slice(-extraLiterals)
+    const numberOfYs = 3 - k
+    for (let i = 0; i < Math.pow(2, numberOfYs); i++) {
+      const binaryConversion = ("0" + (i >>> 0).toString(2)).slice(-numberOfYs)
       const newClause = JSON.parse(JSON.stringify(clause))
-      for (let j = 0; j < extraLiterals; j++) {
+      for (let j = 0; j < numberOfYs; j++) {
         newClause[`Y${j+1}`] = (binaryConversion[j] === "0") ? "+" : "-"
         if (!this.data3SAT["U"].includes(`Y${j+1}`)) this.data3SAT["U"].push(`Y${j+1}`)
       }
@@ -38,8 +37,6 @@ export class Transformation {
   }
 
   otherCase(clause) {
-    // casos k > 3
-    // Variable boobleanas k - 3
     const k = Object.keys(clause).length
     const data = Object.entries(clause) // [[key, value], ....]
     const firstClause = Object.fromEntries(data.splice(0, 2));
