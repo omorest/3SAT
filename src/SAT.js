@@ -4,7 +4,6 @@ export class SAT {
     this.parser(literals, clauses)
     this.literals = literals
     this.clauses = clauses
-    this.k = this.literals.length
   }
   
   parser(literals, clauses) {
