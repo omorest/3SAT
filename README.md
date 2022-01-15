@@ -1,13 +1,16 @@
 # 3 SAT
 
-Clase Cláusula
+## Autores
 
-Clase SAT
-- Verificar que las cláusulas usan las U
-- Comprobar el número de literales que tiene la cláusula (get size o algo)
-* Comprobar que las cláusulas son positivas
+- Óscar Moreira Estévez
+- Marta Julia González Padrón
+- Vanessa Villaba Pérez
+- Adal Díaz Fariña
 
-Clase transformacion
-- 2 OBJETOS SAT: SAT y 3SAT
-- parseo
-- transformacion y comprobar que todas las cláusulas son positivas*
+## Ejecutar
+
+Ejecutar en local
+
+```console
+npm run dev
+```
