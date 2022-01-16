@@ -1,22 +1,25 @@
 import './style.css'
 import {SAT} from './src/SAT.js'
 import {Transformation} from './src/Transformation.js'
-import {saveAs} from 'file-saver';
+import {saveAs} from 'file-saver'
 
 const file = document.querySelector('#file')
 const jsonInput = document.querySelector('.json-input')
 const jsonOutput = document.querySelector('.json-output')
+const downloadButton = document.querySelector('.download')
+const transformButton = document.querySelector('.transform')
 let sat3, sat = {}
 
 
 file.addEventListener('change', function() {
-  const fr = new FileReader();
+  const fr = new FileReader()
   fr.onload = function() {
     sat = new SAT(JSON.parse(fr.result))
     jsonInput.innerHTML = syntaxHighlight(JSON.stringify(sat, null, 2))
-    jsonOutput.innerHTML = '';
+    jsonOutput.innerHTML = ''
+    downloadButton.style.display = 'none'
   }  
-  fr.readAsText(this.files[0]);
+  fr.readAsText(this.files[0])
 })
 
 const saveFile = () => {
@@ -29,25 +32,22 @@ const saveFile = () => {
 }
 
 function syntaxHighlight(json) {
-  json = json.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+  json = json.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;')
   return json.replace(/("(\\u[a-zA-Z0-9]{4}|\\[^u]|[^\\"])*"(\s*:)?|\b(true|false|null)\b|-?\d+(?:\.\d*)?(?:[eE][+\-]?\d+)?)/g, function (match) {
-      var cls = 'number';
+      var cls = 'number'
       if (/^"/.test(match)) {
           if (/:$/.test(match)) {
-              cls = 'key';
+              cls = 'key'
           } else {
-              cls = 'string';
+              cls = 'string'
           }
       }
-      return '<span class="' + cls + '">' + match + '</span>';
-  });
+      return '<span class="' + cls + '">' + match + '</span>'
+  })
 }
 
-const downloadButton = document.querySelector('.download')
 downloadButton.addEventListener('click',() => saveFile())
 
-// -------------------------------
-const transformButton = document.querySelector('.transform')
 transformButton.addEventListener('click',() => {
   const transformer = new Transformation(sat)
   sat3 = transformer.transform()
